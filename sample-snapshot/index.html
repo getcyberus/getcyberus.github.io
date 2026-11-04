@@ -5,156 +5,186 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sample Security Snapshot report | CyberUs</title>
 <meta name="description" content="A sample CyberUs Security Snapshot report produced against two intentionally vulnerable demo apps on our own infrastructure: a local OWASP Juice Shop copy and our own test RAG chatbot. No client was tested.">
+<!-- Hosting: GitHub Pages under the getcyberus org. If a custom domain is added later, update canonical, og:url and og:image. -->
 <link rel="canonical" href="https://getcyberus.github.io/sample-snapshot/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="CyberUs">
 <meta property="og:title" content="Sample Security Snapshot report | CyberUs">
 <meta property="og:description" content="See the format and depth of a CyberUs report: web app and LLM/RAG findings with evidence and remediation guidance, from intentionally vulnerable demo apps. Sample only, no client tested.">
 <meta property="og:url" content="https://getcyberus.github.io/sample-snapshot/">
+<meta property="og:image" content="https://getcyberus.github.io/assets/og-sample.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sample Security Snapshot report | CyberUs">
 <meta property="og:locale" content="en_US">
-<!-- TODO: add og:image (1200x630, report cover, SAMPLE label visible) and twitter:site once the X handle exists. -->
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Sample Security Snapshot report | CyberUs">
 <meta name="twitter:description" content="A sample CyberUs report on intentionally vulnerable demo apps (OWASP Juice Shop and our own test RAG chatbot). No client was tested.">
-<meta name="theme-color" content="#0d0f14">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d0f14'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='16' text-anchor='middle' fill='%23e0533d'%3ECU%3C/text%3E%3C/svg%3E">
-<style>
-:root{--bg:#0d0f14;--card:#161a22;--fg:#e8eaf0;--mute:#9aa3b2;--acc:#e0533d;--line:#252b36}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-h1,h2,h3,.logo{font-weight:500}
-.wrap{max-width:960px;margin:0 auto;padding:0 20px}
-header{border-bottom:1px solid var(--line)}
-header .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:18px 20px}
-.logo{font-size:22px;letter-spacing:.5px;color:var(--fg);text-decoration:none}.logo span{color:var(--acc)}
-nav a{color:var(--mute);margin-left:16px;text-decoration:none;font-size:14px}nav a:hover{color:var(--fg)}
-.hero{padding:56px 0 24px}
-.hero h1{font-size:38px;line-height:1.15;margin:0 0 14px}
-.hero p{color:var(--mute);font-size:18px;max-width:720px;margin:0 0 24px}
-.btn{display:inline-block;background:var(--acc);color:#fff;text-decoration:none;padding:12px 20px;border-radius:8px;font-size:16px}
-.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--fg);margin-left:10px}
-h2{font-size:26px;margin:56px 0 16px}
-.sample{border:1px dashed var(--acc);border-radius:12px;padding:16px 18px;background:rgba(224,83,61,.06);margin:24px 0}
-.sample .tag{display:inline-block;color:var(--acc);font-size:13px;letter-spacing:2px;margin-bottom:6px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px}
-.card h3{margin:0 0 4px;font-size:17px}
-.card .meta{display:block;color:var(--acc);font-size:13px;margin-bottom:8px}
-.card p{margin:0 0 8px;color:#c9ceda;font-size:15px}
-.card p:last-child{margin-bottom:0}
-.card .lbl{color:var(--mute)}
-table{width:100%;border-collapse:collapse;font-size:15px}
-th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--mute);font-weight:400}
-.sev-c{color:#ff6b57}.sev-h{color:#ffa657}.sev-m{color:#e3c26b}
-.offer{border:1px solid var(--acc);border-radius:12px;padding:24px;background:rgba(224,83,61,.06)}
-.offer h2{margin-top:0}
-.offer .price{font-size:20px;margin:16px 0}
-ul,ol{padding-left:20px}li{margin-bottom:6px}
-.mute{color:var(--mute)}
-a{color:#ff8a73}
-footer{border-top:1px solid var(--line);margin-top:56px;padding:20px 0;color:var(--mute);font-size:13px}
-</style>
+<meta name="twitter:image" content="https://getcyberus.github.io/assets/og-sample.png">
+<!-- TODO: add twitter:site once the X handle exists. -->
+<meta name="theme-color" content="#F5F2EC" data-dynamic>
+<script>(function(){var t;try{t=localStorage.getItem('cu-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',t);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',t==='dark'?'#101113':'#F5F2EC')})();</script>
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preload" href="../assets/fonts/newsreader-roman.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/schibsted-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/theme.js" defer></script>
 </head>
 <body>
-<header><div class="wrap">
-<a class="logo" href="../">Cyber<span>Us</span></a>
-<nav><a href="#report">The report</a><a href="#findings">Findings</a><a href="#method">How it was made</a><a href="#snapshot">Get a Snapshot</a><a href="../#pt">Português</a></nav>
-</div></header>
-
-<main class="wrap">
-
-<div class="hero">
-<h1>Sample report: see what a CyberUs report looks like.</h1>
-<p>A complete sample report, run against two intentionally vulnerable demo apps on our own infrastructure: a local copy of OWASP Juice Shop and a small, deliberately vulnerable RAG chatbot we wrote for testing. It opens with a threat model, and each finding comes with evidence, business impact and remediation guidance.</p>
-<a class="btn" href="CyberUs_Security_Snapshot_Sample.pdf">Open the sample report (PDF, 22 pages)</a><a class="btn ghost" href="https://cal.com/cyberus/20-min-discovery-call">Book a 20-min scoping call</a>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-head">
+<div class="wrap">
+<a class="brand" href="../" aria-label="CyberUs home"><svg class="wm" viewBox="0 -30 191.3 42" aria-hidden="true" focusable="false"><path d="M1.5 -16.5V-25.5H10.5M25.5 -10.5V-1.5H16.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/><rect x="9" y="-18" width="9" height="9" fill="var(--accent)"/><g transform="translate(38 0)"><path fill="currentColor" d="M18 -1Q19.4 -1 20.8 -1.4Q22.1 -1.8 23.5 -2.7L22.5 -1.8L26.1 -7.8H26.9L25.7 -0.8Q23.8 -0.2 21.8 0.1Q19.7 0.5 17.4 0.5Q13.9 0.5 11 -0.5Q8.1 -1.4 6.1 -3.2Q4 -5.1 2.8 -7.8Q1.7 -10.4 1.7 -13.9Q1.7 -18.2 3.6 -21.5Q5.6 -24.7 9.1 -26.5Q12.7 -28.3 17.5 -28.3Q19 -28.3 20.3 -28.1Q21.7 -27.9 23.4 -27.5L22.1 -27.2L24.6 -29H25L26.7 -19.1L25.9 -18.9L21.8 -25.7L23 -24.4Q21.3 -25.7 19.8 -26.2Q18.3 -26.7 16.7 -26.7Q14.5 -26.7 12.8 -26Q11.1 -25.3 9.8 -23.9Q8.6 -22.5 7.9 -20.3Q7.2 -18.1 7.2 -15.1Q7.2 -11.6 8 -9Q8.9 -6.4 10.3 -4.6Q11.8 -2.8 13.8 -1.9Q15.8 -1 18 -1Z M42.1 -4.1 39.7 1.3 30.5 -17.4 28.1 -18.3V-19H38.3V-18.2L35.7 -17.5ZM33.4 9.8Q32.1 9.8 31.3 9.2Q30.5 8.5 30.5 7.3Q30.5 6.6 30.7 6.2Q30.9 5.8 31.3 5.6Q31.6 5.3 32 5.3Q32.3 5.3 32.7 5.5Q33 5.7 33.6 5.9Q34.1 6.2 34.9 6.2Q35.6 6.2 36.2 5.9Q36.9 5.7 37.4 5.1Q37.9 4.5 38.4 3.4L40.1 -0.8L41.3 -3.8L46.2 -17.6L43.6 -18.2V-19H50.2V-18.2L48 -17.6L40 3.2Q39 5.8 38 7.2Q37 8.7 35.9 9.3Q34.8 9.8 33.4 9.8Z M54.4 -1.2 56.7 -1.4 52.8 0.6 52.3 0.4 53.1 -4.3V-24.6Q52.8 -24.9 52.4 -25.2Q51.9 -25.6 51.3 -26Q50.7 -26.3 50 -26.8V-27.3L57.6 -29.2H58L57.7 -25.5V-4.9Q57.7 -3.8 58.3 -2.9Q58.8 -2 59.7 -1.5Q60.6 -1 61.9 -1Q63.4 -1 64.6 -1.9Q65.7 -2.8 66.3 -4.6Q66.9 -6.4 66.9 -9.1Q66.9 -11.7 66.3 -13.3Q65.7 -15 64.5 -15.8Q63.3 -16.6 61.6 -16.6Q60.7 -16.6 59.8 -16.4Q58.9 -16.2 58.2 -15.8Q57.4 -15.4 56.6 -14.7L56.3 -15.6Q57.5 -16.7 58.5 -17.4Q59.6 -18.2 60.5 -18.6Q61.4 -19.1 62.3 -19.3Q63.1 -19.5 63.9 -19.5Q66.5 -19.5 68.2 -18.4Q70 -17.3 70.9 -15.3Q71.8 -13.3 71.8 -10.5Q71.8 -7.9 71 -5.9Q70.2 -3.8 68.8 -2.4Q67.3 -1 65.4 -0.3Q63.4 0.5 61.2 0.5Q60 0.5 58.9 0.3Q57.8 0.1 56.7 -0.2Q55.6 -0.6 54.4 -1.2Z M83.8 -19.5Q86 -19.5 87.6 -18.6Q89.2 -17.6 90.1 -15.9Q91.1 -14.1 91.3 -11.6H78.3L78.3 -13L88.8 -13.3L86.7 -12.3Q86.6 -14.3 86.2 -15.6Q85.8 -16.8 85.1 -17.4Q84.4 -18 83.3 -18Q82 -18 81.1 -17.3Q80.1 -16.6 79.6 -15Q79.1 -13.5 79.1 -11Q79.1 -8.3 79.9 -6.5Q80.7 -4.7 82.3 -3.8Q83.8 -2.9 85.9 -2.9Q86.9 -2.9 87.8 -3.1Q88.7 -3.4 89.5 -3.9Q90.3 -4.4 91.1 -5.1L91.5 -4.6Q90.3 -2.8 89.1 -1.7Q87.9 -0.6 86.5 -0.1Q85.2 0.5 83.5 0.5Q80.9 0.5 78.9 -0.7Q76.8 -1.9 75.7 -4.1Q74.5 -6.2 74.5 -9.2Q74.5 -12 75.6 -14.3Q76.7 -16.6 78.8 -18.1Q80.9 -19.5 83.8 -19.5Z M107 -19.4Q108 -19.4 108.6 -18.8Q109.1 -18.2 109.1 -17.2Q109.1 -16.1 108.3 -15.3Q107.6 -14.6 106.5 -14.6Q105.9 -14.6 105.4 -14.8Q104.9 -14.9 104.4 -15Q103.8 -15.2 103.2 -15.2Q102.7 -15.2 102.2 -15Q101.7 -14.9 101.2 -14.6Q100.7 -14.3 100.3 -13.9L100.1 -14.8Q101.4 -16.2 102.5 -17.1Q103.5 -18 104.3 -18.5Q105.1 -19 105.7 -19.2Q106.4 -19.4 107 -19.4ZM100.8 -15.6V-1.5L103.7 -0.7V0H93.5V-0.7L96.1 -1.5V-15Q95.8 -15.3 95.5 -15.6Q95.1 -15.8 94.6 -16.1Q94.1 -16.5 93.4 -16.9V-17.4L100.3 -19.6H100.6Z"/><path fill="var(--accent)" d="M117.3 -11.3Q116.4 -8.2 116.8 -6.2Q117.1 -4.2 118.7 -3.2Q120.3 -2.3 123.1 -2.3Q125.4 -2.3 127.3 -3.1Q129.2 -4 130.6 -5.9Q132.1 -7.8 133.1 -11L137.8 -26.3L134.5 -27.2L134.7 -27.8H142.8L142.7 -27.2L139.3 -26.3L134.4 -10.2Q133.2 -6.4 131.5 -4.1Q129.8 -1.7 127.4 -0.7Q125 0.4 121.9 0.4Q118.1 0.4 115.7 -0.9Q113.2 -2.3 112.5 -5Q111.8 -7.7 113 -11.8L117.4 -26.3L114.5 -27.2L114.7 -27.8H125.5L125.3 -27.2L121.9 -26.3Z M140.6 -4.5Q140.8 -3.7 141 -3.1Q141.2 -2.5 141.6 -1.9Q142 -1.3 142.5 -1Q143 -0.8 143.5 -0.8Q144.6 -0.8 145.3 -1.2Q146.1 -1.5 146.5 -2.1Q146.9 -2.8 146.9 -3.7Q146.9 -4.2 146.7 -4.9Q146.5 -5.5 145.9 -6.3Q145.4 -7.1 144.4 -8.2Q143.4 -9.2 142.8 -10.1Q142.3 -11 142 -11.8Q141.8 -12.6 141.8 -13.4Q141.8 -15.1 142.6 -16.4Q143.5 -17.8 145 -18.6Q146.5 -19.4 148.6 -19.4Q150.2 -19.4 151.1 -19.1Q152 -18.7 152.4 -18.1Q152.8 -17.5 152.8 -16.7Q152.8 -16.1 152.6 -15.7Q152.3 -15.2 151.7 -15Q151.1 -14.8 150.2 -14.8Q150.2 -15.6 150 -16.2Q149.8 -16.7 149.4 -17.2Q149 -17.8 148.5 -18Q148.1 -18.2 147.5 -18.2Q146.1 -18.2 145.4 -17.6Q144.6 -16.9 144.6 -15.7Q144.6 -15.1 144.8 -14.5Q145 -14 145.6 -13.2Q146.1 -12.4 147.1 -11.3Q148 -10.2 148.6 -9.2Q149.2 -8.3 149.4 -7.5Q149.7 -6.7 149.7 -5.9Q149.7 -4.2 148.7 -2.7Q147.8 -1.3 146.1 -0.4Q144.5 0.4 142.3 0.4Q140.7 0.4 139.7 0.1Q138.7 -0.3 138.3 -0.9Q137.8 -1.6 137.8 -2.3Q137.8 -3 138.1 -3.5Q138.4 -4 139.1 -4.2Q139.7 -4.5 140.6 -4.5Z"/></g></svg></a>
+<nav class="nav" aria-label="Primary"><a href="#report">The report</a><a href="#findings">Findings</a><a href="#method">How it was made</a><a href="#snapshot">Get a Snapshot</a><a href="../#pt">Português</a></nav>
+<div class="head-actions"><button class="toggle" type="button" data-theme-toggle aria-label="Switch theme" title="Switch theme"><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor"/></svg></button><a class="btn sm" href="https://cal.com/cyberus/20-min-discovery-call">Book a call</a></div>
 </div>
+<nav class="subnav" aria-label="Sections"><div class="wrap"><a href="#report">The report</a><a href="#findings">Findings</a><a href="#method">How it was made</a><a href="#snapshot">Get a Snapshot</a><a href="../#pt">Português</a></div></nav>
+</header>
 
-<div class="sample">
-<span class="tag">SAMPLE</span>
-<p>This is a sample, not client work. Both targets were intentionally vulnerable demo applications run on CyberUs's own infrastructure: OWASP Juice Shop (a public training app that is insecure by design) and a deliberately vulnerable chatbot stub written by CyberUs. No real company's system was tested. The number and severity of findings are not representative of a typical client engagement.</p>
+<main id="main">
+<div class="hero"><div class="wrap">
+<div class="hero-grid">
+<div>
+<p class="label" style="display:flex;gap:12px;align-items:center"><span class="stamp">Sample</span>Our own test targets, not a client</p>
+<h1>See what a CyberUs report <em>looks like.</em></h1>
+<p class="lede">A complete sample report, run against two intentionally vulnerable demo apps on our own infrastructure: a local copy of OWASP Juice Shop and a small, deliberately vulnerable RAG chatbot we wrote for testing. It opens with a threat model, and each finding comes with evidence, business impact and remediation guidance.</p>
+<div class="actions">
+<a class="btn" href="CyberUs_Security_Snapshot_Sample.pdf">Open the sample report <span class="muted" style="color:inherit;opacity:.7;font-weight:400">PDF, 22 pages</span></a>
+<a class="tlink" href="https://cal.com/cyberus/20-min-discovery-call">Book a 20-min scoping call <span class="arr" aria-hidden="true">&rarr;</span></a>
 </div>
+</div>
+<figure class="sheet" style="margin:0" aria-label="Sample report at a glance">
+<div class="sheet-top"><span class="label">Security Snapshot &middot; sample</span><span class="stamp">Sample</span></div>
+<div class="sheet-body">
+<span class="meta">Targets</span>
+<h3>OWASP Juice Shop (local copy) and our own test RAG chatbot</h3>
+<dl><dt>Findings</dt><dd>13</dd><dt>Critical</dt><dd><span class="sev c">2</span></dd><dt>High</dt><dd><span class="sev h">3</span></dd><dt>Medium</dt><dd><span class="sev m">8</span></dd><dt>Method</dt><dd>Grey-box, OWASP WSTG, API Top 10, LLM Top 10</dd></dl>
+<p>Counts come from apps that are insecure by design and are not representative of a typical client engagement.</p>
+</div>
+<figcaption class="sheet-foot">No real company&rsquo;s system was tested.</figcaption>
+</figure>
+</div>
+<div class="sample-flag" role="note"><span class="stamp" style="flex:none">Sample</span><p>This is a sample, not client work. Both targets were intentionally vulnerable demo applications run on CyberUs&rsquo;s own infrastructure: OWASP Juice Shop (a public training app that is insecure by design) and a deliberately vulnerable chatbot stub written by CyberUs. No real company&rsquo;s system was tested. The number and severity of findings are not representative of a typical client engagement.</p></div>
+</div></div>
 
-<h2 id="method">How this sample was made, and how it differs from a Snapshot</h2>
-<p>We want to be plain about this. A paid Security Snapshot is one day of hands-on testing of one web app, API or LLM feature, within the scope of a signed authorization letter. This sample went further than that. Because we owned both targets, it was grey-box testing with registered test accounts and active exploitation of the demo apps, including authentication bypass, privilege escalation through registration, and storing test payloads. That depth, against applications built to be insecure, is why it produced 13 findings with saved requests and responses. A standard Snapshot is narrower, and its exact depth is set by the client's scope and authorization letter.</p>
+<section id="method"><div class="wrap">
+<div class="sec-head"><p class="label"><span class="n">01</span>How it was made</p><div><h2>How this sample differs from a <em>Snapshot.</em></h2><p class="lede">We want to be plain about this.</p></div></div>
+<div class="pt"><div></div><div class="prose">
+<p>A paid Security Snapshot is one day of hands-on testing of one web app, API or LLM feature, within the scope of a signed authorization letter. This sample went further than that. Because we owned both targets, it was grey-box testing with registered test accounts and active exploitation of the demo apps, including authentication bypass, privilege escalation through registration, and storing test payloads. That depth, against applications built to be insecure, is why it produced 13 findings with saved requests and responses. A standard Snapshot is narrower, and its exact depth is set by the client&rsquo;s scope and authorization letter.</p>
 <ul>
 <li>A Snapshot delivers a written report with a threat model and every finding ranked by severity, plus a recommended next step with a fixed quote.</li>
-<li>Hands-on testing like the work in this sample is part of a full LLM Security Review or AppSec Assessment, and always starts with a signed scope and testing authorization.</li>
+<li>Broader and deeper testing like the work in this sample is part of a full LLM Security Review or AppSec Assessment, and always starts with a signed scope and testing authorization.</li>
 <li>The report structure is the same: a threat model first, then findings with severity ratings, evidence and remediation guidance.</li>
 </ul>
-<p class="mute">Method used in the sample, as stated in the report: grey-box testing following the OWASP Web Security Testing Guide, the OWASP API Security Top 10 (2023) and the OWASP Top 10 for LLM Applications (2025). Severity follows CVSS v3.1 base score bands. The chatbot is a deterministic stub that imitates an unsafe language-model integration, with no external AI service; its results illustrate design flaws, not the behaviour of any particular AI model.</p>
+<p class="note">Method used in the sample, as stated in the report: grey-box testing following the OWASP Web Security Testing Guide, the OWASP API Security Top 10 (2023) and the OWASP Top 10 for LLM Applications (2025). Severity follows CVSS v3.1 base score bands. The chatbot is a deterministic stub that imitates an unsafe language-model integration, with no external AI service; its results illustrate design flaws, not the behaviour of any particular AI model.</p>
+</div></div>
+</div></section>
 
-<h2 id="report">What is in the report</h2>
-<ol>
-<li>Executive summary in plain language, with top priorities and what went well</li>
-<li>Scope and approach, including what was out of scope, how the sample's depth compares with a standard Snapshot, and how severity is rated</li>
-<li>Threat model for the two demo apps: assets, likely attackers, and entry points and trust boundaries, each mapped to the findings</li>
-<li>Findings summary table</li>
-<li>Detailed web application findings (OWASP Juice Shop): description, business impact, evidence, steps to reproduce, remediation guidance, references and a rating note</li>
-<li>LLM and RAG assessment of the test chatbot, with a coverage table mapped to the OWASP Top 10 for LLM Applications and AI-specific recommendations</li>
-<li>Strategic recommendations, test log, tools and data handling</li>
+<section id="report"><div class="wrap">
+<div class="sec-head"><p class="label"><span class="n">02</span>What is in the report</p><div><h2>Seven parts, <em>threat model first.</em></h2><p class="lede">One detail we like: where the saved evidence did not fully support an initial rating, the report lowers it and says why, in a rating note on the finding.</p></div></div>
+<ol class="toc">
+<li><span>Executive summary in plain language, with top priorities and what went well</span></li>
+<li><span>Scope and approach, including what was out of scope, how the sample&rsquo;s depth compares with a standard Snapshot, and how severity is rated</span></li>
+<li><span>Threat model for the two demo apps: assets, likely attackers, and entry points and trust boundaries, each mapped to the findings</span></li>
+<li><span>Findings summary table</span></li>
+<li><span>Detailed web application findings (OWASP Juice Shop): description, business impact, evidence, steps to reproduce, remediation guidance, references and a rating note</span></li>
+<li><span>LLM and RAG assessment of the test chatbot, with a coverage table mapped to the OWASP Top 10 for LLM Applications and AI-specific recommendations</span></li>
+<li><span>Strategic recommendations, test log, tools and data handling</span></li>
 </ol>
-<p>One detail we like: where the saved evidence did not fully support an initial rating, the report lowers it and says why, in a rating note on the finding.</p>
+</div></section>
 
-<h2 id="findings">Featured findings</h2>
-<p class="mute">Titles, severities and wording below are taken from the sample report. Secrets in the report are masked, and the API key in the chatbot findings is a fake value planted for the demo.</p>
-<div class="grid">
-<div class="card"><h3>WEB-01 SQL injection in login allows authentication bypass as administrator</h3><span class="meta">Critical · CVSS v3.1 9.1 · Juice Shop</span>
-<p><span class="lbl">What we found:</span> the login endpoint builds its database query from the email value without parameterization, and a crafted value logs the caller in as the administrator. No valid credentials are needed.</p>
-<p><span class="lbl">Remediation guidance:</span> use parameterized queries or the ORM's query builder for all database access, add automated tests with SQL metacharacters, and alert on anomalous logins.</p></div>
-<div class="card"><h3>WEB-06 Mass assignment lets anyone register as administrator</h3><span class="meta">Critical · CVSS v3.1 9.1 · Juice Shop</span>
-<p><span class="lbl">What we found:</span> the registration endpoint copies every field in the request into the new account, including role, so adding "role":"admin" to a normal sign-up creates an administrator account.</p>
-<p><span class="lbl">Remediation guidance:</span> accept only an explicit allowlist of fields at registration, set the role on the server, and use separate input models from database models.</p></div>
-<div class="card"><h3>WEB-04 Customers can read other users' shopping baskets (IDOR)</h3><span class="meta">Medium · CVSS v3.1 4.3 · Juice Shop</span>
-<p><span class="lbl">What we found:</span> the basket endpoint returns any basket whose ID is requested, without checking that it belongs to the logged-in user. Only read access was tested.</p>
-<p><span class="lbl">Remediation guidance:</span> look up objects through the authenticated user rather than the ID in the URL alone, and add automated tests that user A cannot read user B's objects.</p></div>
-<div class="card"><h3>CHAT-01 Direct prompt injection reveals system prompt and internal documents</h3><span class="meta">High · CVSS v3.1 7.5 · test chatbot</span>
-<p><span class="lbl">What we found:</span> a single message asking the assistant to ignore previous instructions made it print the full system prompt and every retrieved document, including an internal runbook. Rules written in a system prompt are not a security control.</p>
-<p><span class="lbl">Remediation guidance:</span> treat the system prompt as public and never rely on it to protect data or enforce permissions.</p></div>
-<div class="card"><h3>CHAT-02 Indirect prompt injection through a retrieved document</h3><span class="meta">Medium · CVSS v3.1 4.6 · test chatbot</span>
-<p><span class="lbl">What we found:</span> a document simulating a customer-uploaded review contains hidden instructions. When a different user asks an ordinary question, the document is retrieved and the assistant follows its instructions instead of answering. The user's own message contained no injection.</p>
-<p><span class="lbl">Remediation guidance:</span> treat retrieved and uploaded content as untrusted data, restrict who can add documents, and limit what the assistant may do after reading untrusted content.</p></div>
-<div class="card"><h3>CHAT-03 Sensitive data leakage from the knowledge base</h3><span class="meta">High · CVSS v3.1 7.5 · test chatbot</span>
-<p><span class="lbl">What we found:</span> no injection is needed. A plain question returns the (fake) production API key, and the retrieval endpoint returns raw documents with no access control, redaction or output filtering.</p>
-<p><span class="lbl">Remediation guidance:</span> keep secrets out of knowledge bases, and filter documents by the requesting user's permissions before they reach the model.</p></div>
+<section id="findings"><div class="wrap">
+<div class="sec-head"><p class="label"><span class="n">03</span>Featured findings</p><div><h2>Six findings, in the <em>report&rsquo;s own words.</em></h2><p class="lede">Titles, severities and wording below are taken from the sample report. Secrets in the report are masked, and the API key in the chatbot findings is a fake value planted for the demo.</p></div></div>
+<div class="findings">
+<article class="card"><div class="card-top"><span class="id">WEB-01</span><span class="tgt">Juice Shop</span></div>
+<div class="card-body"><h3>SQL injection in login allows authentication bypass as administrator</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev c">Critical</span><span class="meta">CVSS v3.1 9.1</span></p>
+<p><b>What we found</b>The login endpoint builds its database query from the email value without parameterization, and a crafted value logs the caller in as the administrator. No valid credentials are needed.</p><p><b>Remediation guidance</b>Use parameterized queries or the ORM's query builder for all database access, add automated tests with SQL metacharacters, and alert on anomalous logins.</p></div></article>
+<article class="card"><div class="card-top"><span class="id">WEB-06</span><span class="tgt">Juice Shop</span></div>
+<div class="card-body"><h3>Mass assignment lets anyone register as administrator</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev c">Critical</span><span class="meta">CVSS v3.1 9.1</span></p>
+<p><b>What we found</b>The registration endpoint copies every field in the request into the new account, including role, so adding "role":"admin" to a normal sign-up creates an administrator account.</p><p><b>Remediation guidance</b>Accept only an explicit allowlist of fields at registration, set the role on the server, and use separate input models from database models.</p></div></article>
+<article class="card"><div class="card-top"><span class="id">WEB-04</span><span class="tgt">Juice Shop</span></div>
+<div class="card-body"><h3>Customers can read other users' shopping baskets (IDOR)</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev m">Medium</span><span class="meta">CVSS v3.1 4.3</span></p>
+<p><b>What we found</b>The basket endpoint returns any basket whose ID is requested, without checking that it belongs to the logged-in user. Only read access was tested.</p><p><b>Remediation guidance</b>Look up objects through the authenticated user rather than the ID in the URL alone, and add automated tests that user A cannot read user B's objects.</p></div></article>
+<article class="card"><div class="card-top"><span class="id">CHAT-01</span><span class="tgt">test chatbot</span></div>
+<div class="card-body"><h3>Direct prompt injection reveals system prompt and internal documents</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev h">High</span><span class="meta">CVSS v3.1 7.5</span></p>
+<p><b>What we found</b>A single message asking the assistant to ignore previous instructions made it print the full system prompt and every retrieved document, including an internal runbook. Rules written in a system prompt are not a security control.</p><p><b>Remediation guidance</b>Treat the system prompt as public and never rely on it to protect data or enforce permissions.</p></div></article>
+<article class="card"><div class="card-top"><span class="id">CHAT-02</span><span class="tgt">test chatbot</span></div>
+<div class="card-body"><h3>Indirect prompt injection through a retrieved document</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev m">Medium</span><span class="meta">CVSS v3.1 4.6</span></p>
+<p><b>What we found</b>A document simulating a customer-uploaded review contains hidden instructions. When a different user asks an ordinary question, the document is retrieved and the assistant follows its instructions instead of answering. The user's own message contained no injection.</p><p><b>Remediation guidance</b>Treat retrieved and uploaded content as untrusted data, restrict who can add documents, and limit what the assistant may do after reading untrusted content.</p></div></article>
+<article class="card"><div class="card-top"><span class="id">CHAT-03</span><span class="tgt">test chatbot</span></div>
+<div class="card-body"><h3>Sensitive data leakage from the knowledge base</h3><p style="display:flex;gap:16px;align-items:center"><span class="sev h">High</span><span class="meta">CVSS v3.1 7.5</span></p>
+<p><b>What we found</b>No injection is needed. A plain question returns the (fake) production API key, and the retrieval endpoint returns raw documents with no access control, redaction or output filtering.</p><p><b>Remediation guidance</b>Keep secrets out of knowledge bases, and filter documents by the requesting user's permissions before they reach the model.</p></div></article>
 </div>
+<h3 style="margin:clamp(56px,7vw,88px) 0 20px">All findings in the sample</h3>
+<div class="tbl-wrap"><table>
+<thead><tr><th scope="col">ID</th><th scope="col">Title</th><th scope="col">Severity</th><th scope="col" class="num">CVSS v3.1</th></tr></thead>
+<tbody>
+<tr><td class="id">WEB-01</td><td class="t">SQL injection in login allows authentication bypass as administrator</td><td><span class="sev c">Critical</span></td><td class="num">9.1</td></tr>
+<tr><td class="id">WEB-02</td><td class="t">Password hash included in session token (JWT)</td><td><span class="sev m">Medium</span></td><td class="num">5.9</td></tr>
+<tr><td class="id">WEB-03</td><td class="t">Confidential files exposed through public /ftp directory</td><td><span class="sev h">High</span></td><td class="num">7.5</td></tr>
+<tr><td class="id">WEB-04</td><td class="t">Customers can read other users' shopping baskets (IDOR)</td><td><span class="sev m">Medium</span></td><td class="num">4.3</td></tr>
+<tr><td class="id">WEB-05</td><td class="t">Full user directory exposed to any logged-in customer</td><td><span class="sev m">Medium</span></td><td class="num">6.5</td></tr>
+<tr><td class="id">WEB-06</td><td class="t">Mass assignment lets anyone register as administrator</td><td><span class="sev c">Critical</span></td><td class="num">9.1</td></tr>
+<tr><td class="id">WEB-07</td><td class="t">CAPTCHA answer sent to the client; no login throttling observed</td><td><span class="sev m">Medium</span></td><td class="num">5.3</td></tr>
+<tr><td class="id">WEB-08</td><td class="t">Metrics, application configuration and key files exposed without login</td><td><span class="sev m">Medium</span></td><td class="num">5.3</td></tr>
+<tr><td class="id">WEB-09</td><td class="t">Unsanitized HTML stored in product reviews (possible stored XSS)</td><td><span class="sev m">Medium</span></td><td class="num">5.4</td></tr>
+<tr><td class="id">WEB-10</td><td class="t">Verbose error pages disclose database errors and stack traces</td><td><span class="sev m">Medium</span></td><td class="num">5.3</td></tr>
+<tr><td class="id">CHAT-01</td><td class="t">Direct prompt injection reveals system prompt and internal documents</td><td><span class="sev h">High</span></td><td class="num">7.5</td></tr>
+<tr><td class="id">CHAT-02</td><td class="t">Indirect prompt injection through a retrieved document</td><td><span class="sev m">Medium</span></td><td class="num">4.6</td></tr>
+<tr><td class="id">CHAT-03</td><td class="t">Sensitive data leakage from the knowledge base</td><td><span class="sev h">High</span></td><td class="num">7.5</td></tr>
+</tbody></table></div>
+<div class="svc-foot"><p style="margin:0">Sample only: the number and severity of findings come from apps that are insecure by design and are not representative of a typical client engagement.</p><a class="tlink" href="CyberUs_Security_Snapshot_Sample.pdf">Open the full sample report (PDF) <span class="arr" aria-hidden="true">&rarr;</span></a></div>
+</div></section>
 
-<h2>All findings in the sample</h2>
-<table>
-<tr><th>ID</th><th>Title</th><th>Severity</th><th>CVSS v3.1</th></tr>
-<tr><td>WEB-01</td><td>SQL injection in login allows authentication bypass as administrator</td><td class="sev-c">Critical</td><td>9.1</td></tr>
-<tr><td>WEB-02</td><td>Password hash included in session token (JWT)</td><td class="sev-m">Medium</td><td>5.9</td></tr>
-<tr><td>WEB-03</td><td>Confidential files exposed through public /ftp directory</td><td class="sev-h">High</td><td>7.5</td></tr>
-<tr><td>WEB-04</td><td>Customers can read other users' shopping baskets (IDOR)</td><td class="sev-m">Medium</td><td>4.3</td></tr>
-<tr><td>WEB-05</td><td>Full user directory exposed to any logged-in customer</td><td class="sev-m">Medium</td><td>6.5</td></tr>
-<tr><td>WEB-06</td><td>Mass assignment lets anyone register as administrator</td><td class="sev-c">Critical</td><td>9.1</td></tr>
-<tr><td>WEB-07</td><td>CAPTCHA answer sent to the client; no login throttling observed</td><td class="sev-m">Medium</td><td>5.3</td></tr>
-<tr><td>WEB-08</td><td>Metrics, application configuration and key files exposed without login</td><td class="sev-m">Medium</td><td>5.3</td></tr>
-<tr><td>WEB-09</td><td>Unsanitized HTML stored in product reviews (possible stored XSS)</td><td class="sev-m">Medium</td><td>5.4</td></tr>
-<tr><td>WEB-10</td><td>Verbose error pages disclose database errors and stack traces</td><td class="sev-m">Medium</td><td>5.3</td></tr>
-<tr><td>CHAT-01</td><td>Direct prompt injection reveals system prompt and internal documents</td><td class="sev-h">High</td><td>7.5</td></tr>
-<tr><td>CHAT-02</td><td>Indirect prompt injection through a retrieved document</td><td class="sev-m">Medium</td><td>4.6</td></tr>
-<tr><td>CHAT-03</td><td>Sensitive data leakage from the knowledge base</td><td class="sev-h">High</td><td>7.5</td></tr>
-</table>
-<p class="mute">Sample only: the number and severity of findings come from apps that are insecure by design and are not representative of a typical client engagement.</p>
-<p><a class="btn ghost" style="margin-left:0" href="CyberUs_Security_Snapshot_Sample.pdf">Open the full sample report (PDF)</a></p>
-
-<div class="offer" id="snapshot">
-<h2>Want this kind of clarity for your app or LLM feature?</h2>
-<p>Start with a Security Snapshot: one web app, API or LLM feature. One day of hands-on testing plus a written report with a threat model and every finding ranked by severity. It starts after a short scoping call and a signed authorization letter, with a report readout within about 3 weeks of scoping.</p>
-<p class="price">USD 500, fully credited toward an LLM Security Review or AppSec Assessment.</p>
-<a class="btn" href="https://cal.com/cyberus/20-min-discovery-call">Book a 20-min scoping call</a>
-<p class="mute" style="margin-top:14px">Prefer email? <a href="mailto:getcyberus@proton.me?subject=Security%20Snapshot">getcyberus@proton.me</a></p>
+<section id="snapshot"><div class="wrap">
+<div class="offer">
+<div>
+<p class="label"><span class="n">04</span>Get a Snapshot</p>
+<h2 style="margin:18px 0 18px">Want this kind of clarity for your app or <em>LLM feature?</em></h2>
+<p class="muted" style="max-width:36em;margin:0">Start with a Security Snapshot: one web app, API or LLM feature. One day of hands-on testing plus a written report with a threat model and every finding ranked by severity. It starts after a short scoping call and a signed authorization letter, with a report readout within about 3 weeks of scoping. We delete client data after delivery.</p>
 </div>
+<div>
+<div class="price" style="margin-bottom:24px"><div class="amt"><small>USD</small>500</div><p>USD 500, fully credited toward an LLM Security Review or AppSec Assessment.</p></div>
+<div class="actions"><a class="btn" href="https://cal.com/cyberus/20-min-discovery-call">Book a 20-min scoping call <span class="arr" aria-hidden="true">&rarr;</span></a><a class="tlink" href="#contact">Prefer email? <span class="arr" aria-hidden="true">&rarr;</span></a></div>
+</div>
+</div>
+</div></section>
 
-<h2>Questions</h2>
-<ul>
-<li>Is a Snapshot a full penetration test? No. It is one day of hands-on testing of one web app, API or LLM feature, within the scope of a signed authorization letter. Broader and deeper testing like this sample is part of the full reviews.</li>
-<li>Was any real company tested for this sample? No. Both targets were demo apps run on our own infrastructure and removed after testing. The company name in the chatbot findings is fictional demo content.</li>
-<li>What happens to client data in real work? We use least-privilege, time-boxed access and are happy to sign your NDA. We delete client data after delivery.</li>
+<section id="faq"><div class="wrap">
+<div class="sec-head"><p class="label"><span class="n">05</span>Questions</p><div><h2>About this <em>sample.</em></h2></div></div>
+<div class="faq">
+<details open><summary>Is a Snapshot a full penetration test?</summary><div class="a"><p>No. It is one day of hands-on testing of one web app, API or LLM feature, within the scope of a signed authorization letter. Broader and deeper testing like this sample is part of the full reviews.</p></div></details>
+<details><summary>Was any real company tested for this sample?</summary><div class="a"><p>No. Both targets were demo apps run on our own infrastructure and removed after testing. The company name in the chatbot findings is fictional demo content.</p></div></details>
+<details><summary>What happens to client data in real work?</summary><div class="a"><p>We use least-privilege, time-boxed access and are happy to sign your NDA. We delete client data after delivery.</p></div></details>
+</div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+<!-- CONTACT: the only place the email address appears on this page. Swap it here. -->
+<div class="contact" id="contact-card">
+<div>
+<p class="label" style="color:inherit;opacity:.7">Contact</p>
+<h2 style="margin-top:18px">Questions about the <em>sample?</em></h2>
+<p class="lede">Book a 20-minute call, or email us about a Security Snapshot.</p>
+<a class="btn" href="https://cal.com/cyberus/20-min-discovery-call">Book a 20-min call <span class="arr" aria-hidden="true">&rarr;</span></a>
+</div>
+<ul class="contact-list">
+<li><span class="k">Email</span><a href="mailto:getcyberus@proton.me?subject=Security%20Snapshot">getcyberus@proton.me</a></li>
+<li><span class="k">Call</span><a href="https://cal.com/cyberus/20-min-discovery-call">cal.com/cyberus</a></li>
+<li><span class="k">Bluesky</span><a href="https://bsky.app/profile/cyberuslabs.bsky.social">@cyberuslabs.bsky.social</a></li>
 </ul>
+</div>
 
+</div></section>
 </main>
-<footer><div class="wrap"><a href="../">CyberUs</a> · a team across Brazil, the UK and the US · <a href="mailto:getcyberus@proton.me">getcyberus@proton.me</a></div></footer>
+<footer class="site-foot">
+<div class="wrap">
+<div><a class="brand" href="../" aria-label="CyberUs home"><svg class="wm" viewBox="0 -30 191.3 42" aria-hidden="true" focusable="false"><path d="M1.5 -16.5V-25.5H10.5M25.5 -10.5V-1.5H16.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square"/><rect x="9" y="-18" width="9" height="9" fill="var(--accent)"/><g transform="translate(38 0)"><path fill="currentColor" d="M18 -1Q19.4 -1 20.8 -1.4Q22.1 -1.8 23.5 -2.7L22.5 -1.8L26.1 -7.8H26.9L25.7 -0.8Q23.8 -0.2 21.8 0.1Q19.7 0.5 17.4 0.5Q13.9 0.5 11 -0.5Q8.1 -1.4 6.1 -3.2Q4 -5.1 2.8 -7.8Q1.7 -10.4 1.7 -13.9Q1.7 -18.2 3.6 -21.5Q5.6 -24.7 9.1 -26.5Q12.7 -28.3 17.5 -28.3Q19 -28.3 20.3 -28.1Q21.7 -27.9 23.4 -27.5L22.1 -27.2L24.6 -29H25L26.7 -19.1L25.9 -18.9L21.8 -25.7L23 -24.4Q21.3 -25.7 19.8 -26.2Q18.3 -26.7 16.7 -26.7Q14.5 -26.7 12.8 -26Q11.1 -25.3 9.8 -23.9Q8.6 -22.5 7.9 -20.3Q7.2 -18.1 7.2 -15.1Q7.2 -11.6 8 -9Q8.9 -6.4 10.3 -4.6Q11.8 -2.8 13.8 -1.9Q15.8 -1 18 -1Z M42.1 -4.1 39.7 1.3 30.5 -17.4 28.1 -18.3V-19H38.3V-18.2L35.7 -17.5ZM33.4 9.8Q32.1 9.8 31.3 9.2Q30.5 8.5 30.5 7.3Q30.5 6.6 30.7 6.2Q30.9 5.8 31.3 5.6Q31.6 5.3 32 5.3Q32.3 5.3 32.7 5.5Q33 5.7 33.6 5.9Q34.1 6.2 34.9 6.2Q35.6 6.2 36.2 5.9Q36.9 5.7 37.4 5.1Q37.9 4.5 38.4 3.4L40.1 -0.8L41.3 -3.8L46.2 -17.6L43.6 -18.2V-19H50.2V-18.2L48 -17.6L40 3.2Q39 5.8 38 7.2Q37 8.7 35.9 9.3Q34.8 9.8 33.4 9.8Z M54.4 -1.2 56.7 -1.4 52.8 0.6 52.3 0.4 53.1 -4.3V-24.6Q52.8 -24.9 52.4 -25.2Q51.9 -25.6 51.3 -26Q50.7 -26.3 50 -26.8V-27.3L57.6 -29.2H58L57.7 -25.5V-4.9Q57.7 -3.8 58.3 -2.9Q58.8 -2 59.7 -1.5Q60.6 -1 61.9 -1Q63.4 -1 64.6 -1.9Q65.7 -2.8 66.3 -4.6Q66.9 -6.4 66.9 -9.1Q66.9 -11.7 66.3 -13.3Q65.7 -15 64.5 -15.8Q63.3 -16.6 61.6 -16.6Q60.7 -16.6 59.8 -16.4Q58.9 -16.2 58.2 -15.8Q57.4 -15.4 56.6 -14.7L56.3 -15.6Q57.5 -16.7 58.5 -17.4Q59.6 -18.2 60.5 -18.6Q61.4 -19.1 62.3 -19.3Q63.1 -19.5 63.9 -19.5Q66.5 -19.5 68.2 -18.4Q70 -17.3 70.9 -15.3Q71.8 -13.3 71.8 -10.5Q71.8 -7.9 71 -5.9Q70.2 -3.8 68.8 -2.4Q67.3 -1 65.4 -0.3Q63.4 0.5 61.2 0.5Q60 0.5 58.9 0.3Q57.8 0.1 56.7 -0.2Q55.6 -0.6 54.4 -1.2Z M83.8 -19.5Q86 -19.5 87.6 -18.6Q89.2 -17.6 90.1 -15.9Q91.1 -14.1 91.3 -11.6H78.3L78.3 -13L88.8 -13.3L86.7 -12.3Q86.6 -14.3 86.2 -15.6Q85.8 -16.8 85.1 -17.4Q84.4 -18 83.3 -18Q82 -18 81.1 -17.3Q80.1 -16.6 79.6 -15Q79.1 -13.5 79.1 -11Q79.1 -8.3 79.9 -6.5Q80.7 -4.7 82.3 -3.8Q83.8 -2.9 85.9 -2.9Q86.9 -2.9 87.8 -3.1Q88.7 -3.4 89.5 -3.9Q90.3 -4.4 91.1 -5.1L91.5 -4.6Q90.3 -2.8 89.1 -1.7Q87.9 -0.6 86.5 -0.1Q85.2 0.5 83.5 0.5Q80.9 0.5 78.9 -0.7Q76.8 -1.9 75.7 -4.1Q74.5 -6.2 74.5 -9.2Q74.5 -12 75.6 -14.3Q76.7 -16.6 78.8 -18.1Q80.9 -19.5 83.8 -19.5Z M107 -19.4Q108 -19.4 108.6 -18.8Q109.1 -18.2 109.1 -17.2Q109.1 -16.1 108.3 -15.3Q107.6 -14.6 106.5 -14.6Q105.9 -14.6 105.4 -14.8Q104.9 -14.9 104.4 -15Q103.8 -15.2 103.2 -15.2Q102.7 -15.2 102.2 -15Q101.7 -14.9 101.2 -14.6Q100.7 -14.3 100.3 -13.9L100.1 -14.8Q101.4 -16.2 102.5 -17.1Q103.5 -18 104.3 -18.5Q105.1 -19 105.7 -19.2Q106.4 -19.4 107 -19.4ZM100.8 -15.6V-1.5L103.7 -0.7V0H93.5V-0.7L96.1 -1.5V-15Q95.8 -15.3 95.5 -15.6Q95.1 -15.8 94.6 -16.1Q94.1 -16.5 93.4 -16.9V-17.4L100.3 -19.6H100.6Z"/><path fill="var(--accent)" d="M117.3 -11.3Q116.4 -8.2 116.8 -6.2Q117.1 -4.2 118.7 -3.2Q120.3 -2.3 123.1 -2.3Q125.4 -2.3 127.3 -3.1Q129.2 -4 130.6 -5.9Q132.1 -7.8 133.1 -11L137.8 -26.3L134.5 -27.2L134.7 -27.8H142.8L142.7 -27.2L139.3 -26.3L134.4 -10.2Q133.2 -6.4 131.5 -4.1Q129.8 -1.7 127.4 -0.7Q125 0.4 121.9 0.4Q118.1 0.4 115.7 -0.9Q113.2 -2.3 112.5 -5Q111.8 -7.7 113 -11.8L117.4 -26.3L114.5 -27.2L114.7 -27.8H125.5L125.3 -27.2L121.9 -26.3Z M140.6 -4.5Q140.8 -3.7 141 -3.1Q141.2 -2.5 141.6 -1.9Q142 -1.3 142.5 -1Q143 -0.8 143.5 -0.8Q144.6 -0.8 145.3 -1.2Q146.1 -1.5 146.5 -2.1Q146.9 -2.8 146.9 -3.7Q146.9 -4.2 146.7 -4.9Q146.5 -5.5 145.9 -6.3Q145.4 -7.1 144.4 -8.2Q143.4 -9.2 142.8 -10.1Q142.3 -11 142 -11.8Q141.8 -12.6 141.8 -13.4Q141.8 -15.1 142.6 -16.4Q143.5 -17.8 145 -18.6Q146.5 -19.4 148.6 -19.4Q150.2 -19.4 151.1 -19.1Q152 -18.7 152.4 -18.1Q152.8 -17.5 152.8 -16.7Q152.8 -16.1 152.6 -15.7Q152.3 -15.2 151.7 -15Q151.1 -14.8 150.2 -14.8Q150.2 -15.6 150 -16.2Q149.8 -16.7 149.4 -17.2Q149 -17.8 148.5 -18Q148.1 -18.2 147.5 -18.2Q146.1 -18.2 145.4 -17.6Q144.6 -16.9 144.6 -15.7Q144.6 -15.1 144.8 -14.5Q145 -14 145.6 -13.2Q146.1 -12.4 147.1 -11.3Q148 -10.2 148.6 -9.2Q149.2 -8.3 149.4 -7.5Q149.7 -6.7 149.7 -5.9Q149.7 -4.2 148.7 -2.7Q147.8 -1.3 146.1 -0.4Q144.5 0.4 142.3 0.4Q140.7 0.4 139.7 0.1Q138.7 -0.3 138.3 -0.9Q137.8 -1.6 137.8 -2.3Q137.8 -3 138.1 -3.5Q138.4 -4 139.1 -4.2Q139.7 -4.5 140.6 -4.5Z"/></g></svg></a><p style="margin:0">A security team across Brazil, the UK and the US.</p></div>
+<nav aria-label="Footer"><a href="../">Home</a><a href="CyberUs_Security_Snapshot_Sample.pdf">Sample report (PDF)</a><a href="../#services">Services</a><a href="https://bsky.app/profile/cyberuslabs.bsky.social">Bluesky</a><a href="../#pt">Português</a></nav>
+<p class="fine">CyberUs · AI and application security · Remote, in English and Portuguese</p>
+</div>
+</footer>
 </body>
 </html>
